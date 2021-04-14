@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:archive/archive.dart';
-import 'package:dart2_constant/convert.dart' as convert;
 import 'package:epub/src/schema/opf/epub_version.dart';
 import 'package:xml/xml.dart' as xml;
 
@@ -56,7 +56,7 @@ class NavigationReader {
     }
 
     xml.XmlDocument containerDocument =
-        xml.parse(convert.utf8.decode(tocFileEntry.content));
+        xml.parse(utf8.decode(tocFileEntry.content));
 
     String ncxNamespace = "http://www.daisy.org/z3986/2005/ncx/";
     xml.XmlElement ncxNode = containerDocument

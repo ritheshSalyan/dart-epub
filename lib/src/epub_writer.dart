@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:archive/archive.dart';
-import 'package:dart2_constant/convert.dart' as convert;
 import 'package:epub/epub.dart';
 import 'package:epub/src/utils/zip_path_utils.dart';
 import 'package:epub/src/writers/epub_package_writer.dart';
@@ -14,11 +15,11 @@ class EpubWriter {
 
     // Add simple metadata
     arch.addFile(ArchiveFile.noCompress(
-        "metadata", 20, convert.utf8.encode("application/epub+zip")));
+        "metadata", 20, utf8.encode("application/epub+zip")));
 
     // Add Container file
     arch.addFile(ArchiveFile("META-INF/container.xml", _container_file.length,
-        convert.utf8.encode(_container_file)));
+        utf8.encode(_container_file)));
 
     // Add all content to the archive
     book.Content.AllFiles.forEach((name, file) {
@@ -27,7 +28,7 @@ class EpubWriter {
       if (file is EpubByteContentFile) {
         content = file.Content;
       } else if (file is EpubTextContentFile) {
-        content = convert.utf8.encode(file.Content);
+        content = utf8.encode(file.Content);
       }
 
       arch.addFile(ArchiveFile(
@@ -42,7 +43,7 @@ class EpubWriter {
     arch.addFile(ArchiveFile(
         ZipPathUtils.combine(book.Schema.ContentDirectoryPath, "content.opf"),
         contentopf.length,
-        convert.utf8.encode(contentopf)));
+        utf8.encode(contentopf)));
 
     return arch;
   }

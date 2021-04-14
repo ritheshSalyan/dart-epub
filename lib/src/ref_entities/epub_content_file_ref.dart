@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:archive/archive.dart';
-import 'package:dart2_constant/convert.dart' as convert;
 import 'package:quiver/core.dart';
 
 import '../entities/epub_content_type.dart';
@@ -65,7 +65,7 @@ abstract class EpubContentFileRef {
 
   Future<String> readContentAsText() async {
     List<int> contentStream = getContentStream();
-    String result = convert.utf8.decode(contentStream);
+    String result = utf8.decode(contentStream);
     return result;
   }
 }
